@@ -1,0 +1,52 @@
+!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>Hello World!</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+
+    <a class="navbar-brand" href="#"><img id="nav-logo" src="../../assets/img/logo-deezer.png"></a>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="#">Features</a>
+            <a class="nav-item nav-link" href="#">Pricing</a>
+            <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </div>
+    </div>
+</nav>
+<div class="text-center"><p>Adding song</p></div>
+<form>
+    <div class="form-row">
+        <div class="col">
+            <label for="artist">Path</label>
+            <input type="text" class="form-control" placeholder="artist" id="artist" required>
+        </div>
+        <div class="col">
+            <label for="album">Name</label>
+            <input type="text" class="form-control" placeholder="album" id="album" required>
+        </div>
+        <div class="col">
+            <label for="lenght">Name</label>
+            <input type="text" class="form-control" placeholder="name" id="lenght" required>
+        </div>
+        <div class="col">
+            <label for="date">Name</label>
+            <input type="date" class="form-control" placeholder="date" id="date" required>
+        </div>
+        <div class="col">
+            <label for="title">Name</label>
+            <input type="text" class="form-control" placeholder="title" id="title" required>
+        </div>
+    </div>
+    <button class="btn btn-primary" id="add_btn">Add</button>
+</form>
+
+<script src="rendererAdd.js"></script>
+</body>
+</html>
