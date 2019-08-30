@@ -127,3 +127,40 @@ ipcMain.on('sortList', (event, id) => {
     event.reply('reload', true);
   }
 });
+
+
+
+ipcMain.on('search', (event) => {
+  const { net } = require('electron');
+  const request = net.request('https://api.deezer.com/search/artist/?q=eminem&output=json');
+  request.on('response', (response) => {
+    // console.log(`STATUS:${response.statusCode}`);
+    // console.log(`HEADERS:${JSON.stringify(response.headers)}`);
+    let data = "";
+    let trackData = "";
+    response.on('data', (chunk) => {
+      // console.log(`BODY:${chunk}`);
+      data += chunk;
+    });
+    response.on('end', () => {
+      // console.log('No more data in response.');
+      console.log(JSON.parse(data));
+      let artist = JSON.parse(data).data[0];
+      // event.reply('deezerSearch', JSON.parse(data));
+      const lighterRequest = net.request(artist.tracklist);
+
+      lighterRequest.on('response', (response) => {
+        response.on('data', (chunk)=> {
+          trackData += chunk
+        });
+        response.on('end', () => {
+          console.log(JSON.parse(trackData));
+          event.reply('deezerSearch', JSON.parse(trackData));
+        });
+      });
+      lighterRequest.end();
+
+    });
+  });
+  request.end();
+});

@@ -2,6 +2,7 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 const { ipcRenderer } = require('electron');
+const { BrowserWindow } = require('electron').remote;
 
 let $table = document.querySelector('#music_table>tbody');
 
@@ -47,7 +48,7 @@ function displayList() {
 
 const displayElems = displayList();
 
-const { BrowserWindow } = require('electron').remote;
+
 function songpage() {
 
     // modal window
@@ -112,3 +113,28 @@ sort.forEach((btn) => {
 ipcRenderer.on('reload', () => {
     displayList()
 });
+
+let scrhBtn = document.querySelector('#search_page');
+const srchSong = scrhBtn.addEventListener('click', () => {
+    searchSongs();
+});
+
+function searchSongs() {
+
+    let  searchsong = new BrowserWindow({
+        width: 1280,
+        height: 768 ,
+        webPreferences: {
+            nodeIntegration: true
+        }});
+    searchsong.loadFile('./pages/searchPage/searchSong.html');
+    searchsong.webContents.openDevTools();
+    searchsong.once('ready-to-show', () => {
+        searchsong.show()
+    });
+    searchsong.flashFrame(false);
+    searchsong.on('close', ()=>{
+        displayList();
+        searchsong = null;
+    })
+}
